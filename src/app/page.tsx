@@ -4,7 +4,7 @@ import { List, Box, Button, Card, Chip, CardContent } from '@mui/material';
 
 import { IframeBussinessTaskActionType, IframeBussinessType } from '@/iframeParaType';
 import _ from 'lodash';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 const mockDataMissionList = [
   {
@@ -296,7 +296,7 @@ const mockDataMissionList = [
   }
 ]
 
-export default function HomePage() {
+const IframePage: React.FC = () => {
   interface requestIframeChild {
     type: number
     req: number
@@ -357,6 +357,15 @@ export default function HomePage() {
     list: any
   }
 
+  interface responseDataShareLink {
+    type: number
+    req: number
+    success: boolean
+    error: any,
+    target: "ton-wallet-iframe"
+    link: any
+  }
+
   const [responseDataConnect, setResponseDataConnect] = useState<responseConnect>({
     type: -1, req: -1, userFriendlyAddress: "", rawAddress: "", target: "ton-wallet-iframe"
   });
@@ -375,6 +384,10 @@ export default function HomePage() {
 
   const [responseDataUserInfo, setResponseDataUserInfo] = useState<responseDataUserInfo>({
     type: -1, req: -1, success: false, error: null, target: "ton-wallet-iframe", profile: null
+  });
+
+  const [responseDataShareLink, setResponseDataShareLink] = useState<responseDataShareLink>({
+    type: -1, req: -1, success: false, error: null, target: "ton-wallet-iframe", link: ""
   });
 
   const [responseDataMissionList, setResponseDataMissionList] = useState<responseDataMissionList>({
@@ -463,18 +476,13 @@ export default function HomePage() {
     }
   }
 
-  const genDisplayDataArr = (objs: any) => {
-    const arr: {
-      title: string
-      value: any
-    }[] = []
-    Object.keys(objs).forEach((key) => {
-      arr.push({
-        title: 'response ' + key,
-        value: objs[key]
-      })
-    })
-    return arr
+  const getShareLink = () => {
+    const request: requestIframeChild = {
+      type: IframeBussinessType.GetInviteCodeShareLink, target: "ton-wallet-iframe-parent", req: 8
+    }
+    if (!_.isUndefined(window)) {
+      window.parent.postMessage(request, "*");
+    }
   }
 
   const renderNftTags = (attributes: any, nftIndex: number) => {
@@ -501,6 +509,8 @@ export default function HomePage() {
     }
     return null
   }
+
+
 
   useEffect(() => {
     getWalletAddress()
@@ -535,6 +545,10 @@ export default function HomePage() {
               const dataResUserInfo: responseDataUserInfo = data
               setResponseDataUserInfo(dataResUserInfo)
               break;
+            case IframeBussinessType.GetInviteCodeShareLink:
+              const dataResShareLink: responseDataShareLink = data
+              setResponseDataShareLink(dataResShareLink)
+              break
             case IframeBussinessType.Task:
               const { action } = data
               switch (action) {
@@ -553,6 +567,12 @@ export default function HomePage() {
     <List style={{ minHeight: '100vh', height: 'auto' }}>
       <Box>
         <h1>Iframe Communication Demo</h1>
+      </Box>
+      <Box>
+        <List>
+          <Button variant="contained" onClick={() => { getShareLink() }}>Get Share Link</Button>
+          <Box>Share Link:{responseDataShareLink.link}</Box>
+        </List>
       </Box>
       <Box>
         <List>
@@ -720,4 +740,4 @@ export default function HomePage() {
   );
 };
 
-// export default HomePage
+export default IframePage
