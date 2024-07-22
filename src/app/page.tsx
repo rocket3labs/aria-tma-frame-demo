@@ -571,7 +571,7 @@ const IframePage: React.FC = () => {
       <Box>
         <List>
           <Button variant="contained" onClick={() => { getShareLink() }}>Get Share Link</Button>
-          <Box>Share Link:{responseDataShareLink.link}</Box>
+          <Box>Share Link:<a style={{ color: 'white', marginLeft: '10px' }} href={responseDataShareLink.link} target='_blank'>{responseDataShareLink.link}</a></Box>
         </List>
       </Box>
       <Box>
