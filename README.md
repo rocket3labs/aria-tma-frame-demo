@@ -632,6 +632,15 @@ response
 
 ### Pay Callback
 
+cabackUrl: CP方提供的callback地址
+
+### **游戏内道具订单**
+
+**
+**GET callbackUrl[?orderId=123&amp;gameOrderId](http://106.14.251.223:9098/order/pay-done?orderId=)=456**
+**// orderId: 内部订单号**
+**// [gameOrderId](http://106.14.251.223:9098/order/pay-done?orderId=%s&gameOrderId=%s): 游戏侧订单号**
+**RequestBody: none
 
 ### API Docs
 
