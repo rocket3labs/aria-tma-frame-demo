@@ -1,4 +1,5 @@
 import { createSignature } from "@googlemaps/url-signature"
+import base64url from "base64url"
 
 export const openWindow = (urlOpen: string, widthN: number, heightN: number, targetTitle = 'target') => {
     const isMobileScreen = isMobile()
@@ -44,7 +45,7 @@ export const verifyURLSign = (urlWithSign: string) => {
             const tgid = searchParams.get('tgid')
             const uid = searchParams.get('uid')
             const token = searchParams.get('token')
-            const tokenJson = window.btoa(token!)
+            const tokenJson = base64url.decode(token!)
             const tokenJsonObj = JSON.parse(tokenJson)
             const { secret } = tokenJsonObj
             if (signature && timestamp && token) {
@@ -61,7 +62,7 @@ export const verifyURLSign = (urlWithSign: string) => {
             }
         }
     } catch (error) {
-        console.error('genIframeUrlEntrancePara params error')
+        console.error('verifyURLSign params error==>', error)
     }
     return false
 }
