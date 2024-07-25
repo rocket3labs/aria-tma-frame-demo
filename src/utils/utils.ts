@@ -36,6 +36,8 @@ export const isMobile = () => {
 }
 
 export const verifyURLSign = (urlWithSign: string) => {
+    // urlWithSign = 'https://webgl.mcorz.com/WebGLTest2/index.html?tgid=368696677&timestamp=1721896437849&token=3d8b10637fefa3e3897e4bfadf48f9b3&uid=71&signature=d5H2K3H9kncu2fWj71V1tuc1pT0='
+    console.log('urlWithSign==>', urlWithSign)
     try {
         if (urlWithSign) {
             const url = new URL(urlWithSign)

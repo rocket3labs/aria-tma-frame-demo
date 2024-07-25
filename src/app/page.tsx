@@ -5,6 +5,7 @@ import { List, Box, Button, Card, Chip, CardContent } from '@mui/material';
 import { IframeBussinessTaskActionType, IframeBussinessType } from '@/iframeParaType';
 import _ from 'lodash';
 import { Fragment, useEffect, useState } from 'react';
+import { verifyURLSign } from '@/utils/utils';
 
 const mockDataMissionList = [
   {
@@ -485,6 +486,12 @@ const IframePage: React.FC = () => {
     }
   }
 
+  const verifyIframeURLSign = () => {
+    const urlIframe = window.location.href
+    const isVerify = verifyURLSign(urlIframe)
+    console.log('verifyIframeURLSign==>', isVerify)
+  }
+
   const renderNftTags = (attributes: any, nftIndex: number) => {
     const tags: any[] = []
     if (!_.isNil(attributes)) {
@@ -513,6 +520,7 @@ const IframePage: React.FC = () => {
 
 
   useEffect(() => {
+    verifyIframeURLSign()
     getWalletAddress()
     // setResponseDataMissionList({ type: -1, req: -1, success: false, error: null, target: "ton-wallet-iframe", list: mockDataMissionList })
     if (!_.isUndefined(window)) {
