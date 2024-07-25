@@ -22,13 +22,7 @@ yarn build
 
 tgid=...&timestamp=...&token=...&uid=...&signature=...
 
-签名验证库 
-
-```bash
-yarn add @googlemaps/url-signature
-```
-
-验证方法
+**验证方法**
 
 **src/utils/utils.ts**
 
@@ -72,7 +66,7 @@ export const verifyURLSign = (urlWithSign: string) => {
 
 ### 2.Iframe内外页面通过message进行数据传递
 
-数据通讯过程
+**数据通讯过程**
 
 a) Iframe 通过 **postMessage** 向父页面传递Request数据
 
@@ -132,64 +126,64 @@ export const enum IframeBussinessTaskActionType {
 
 ## Iframe Event Data
 
-### Common Response Data
+### Common Response Data/通用数据字段
 
-success
+**success**
 
 ```json
 {type: 0, error: null, success: true, target: "ton-wallet-iframe"}
 ```
 
-fail
+**fail**
 
 ```json
 {type: 0, error:{Error Obj}, success: false, target: "ton-wallet-iframe"}
 ```
 
-### Connect/Get Wallet Address 0/9999
+### Connect/Get Wallet Address 0/9999 连接钱包/获取钱包地址
 
-request
+**request**
 
 ```json
 {type: 0, target: "ton-wallet-iframe-parent"}
 ```
 
-response
+**response**
 
 ```json
 {type: 0, userFriendlyAddress: "", rawAddress: "", target: "ton-wallet-iframe"}
 ```
 
-### Pay 1
+### Pay 1 / 支付
 
-request
+**request**
 
 ```json
 {type: 1, value:0.0001,token:"",payType: 0, target: "ton-wallet-iframe-parent"} //connect & mint
 {type: 1, value:0.0001,token:"",payType: 1, target: "ton-wallet-iframe-parent"} //connect & buygameprops
 ```
 
-response
+**response**
 
 ```json
 {"type":1,success: true,error:null,target:"ton-wallet-iframe"}
 ```
 
-### NFT List 2
+### My NFT List 2 / 获取我的钱包地址对应的nft列表
 
-request
+**request**
 
 ```json
 {type:2,target:"ton-wallet-iframe-parent"}
 ```
 
-response
+**response**
 
 ```json
 {"type":2,list:[],target:"ton-wallet-iframe"}
 ```
 
-nft list data
+**my nft list data**
 
 ```json
 //My NFT List
@@ -294,13 +288,13 @@ nft list data
 
 ### NFT Mint 3
 
-request
+**request**
 
 ```json
 {type:3,address:"",target:"ton-wallet-iframe-parent"}
 ```
 
-response
+**response**
 
 ```json
 {"type":3,address:"",success:true,error:null,target:"ton-wallet-iframe"}
@@ -308,19 +302,19 @@ response
 
 ### Profile 4
 
-request
+**request**
 
 ```json
 {type:4,target:"ton-wallet-iframe-parent"}
 ```
 
-response
+**response**
 
 ```json
 {"type":4,success:true,error:null,profile:data,target:"ton-wallet-iframe"}
 ```
 
-profile data
+**profile data**
 
 ```json
 //User Profile
@@ -344,21 +338,21 @@ profile data
     }
 ```
 
-### Web3 wallet bind 5
+### Web3 wallet bind 5 绑定ton的钱包地址
 
-request
+**request**
 
 ```json
 {"type":5,"target":"ton-wallet-iframe-parent"}
 ```
 
-response
+**response**
 
 ```json
 {"type":5,address:"",success:true,error:null,"target":"ton-wallet-iframe"}
 ```
 
-### TG Binded Wallet List 6
+### TG Binded Wallet List 6 / tg用户的绑定钱包地址列表
 
 request
 
@@ -372,7 +366,7 @@ response
 {"type":6,list:[],target:"ton-wallet-iframe"}
 ```
 
-### Share 7
+### Share 7 / 分享
 
 request
 
@@ -387,9 +381,9 @@ response
 ```
 
 
-### Mission 100
+### Mission 100 / 任务
 
-#### mission list 0
+#### mission list 0 / 任务列表
 
 request
 
@@ -635,3 +629,10 @@ response
 ```json
 {"type":100,action: 6,success:true,error:null,"target":"ton-wallet-iframe"}
 ```
+
+### Pay Callback
+
+
+### API Docs
+
+**[apifox](https://app.apifox.com/project/4143747)**

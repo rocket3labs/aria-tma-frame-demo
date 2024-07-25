@@ -45,16 +45,13 @@ export const verifyURLSign = (urlWithSign: string) => {
             const tgid = searchParams.get('tgid')
             const uid = searchParams.get('uid')
             const token = searchParams.get('token')
-            const tokenJson = base64url.decode(token!)
-            const tokenJsonObj = JSON.parse(tokenJson)
-            const { secret } = tokenJsonObj
             if (signature && timestamp && token) {
                 const paras = `tgid=${tgid}&timestamp=${timestamp}&token=${token}&uid=${uid}`
                 const urls = urlWithSign.split('?')
                 if (urls.length > 1) {
                     const url = urls[0]
                     const urlGen = `${url}?${paras}`
-                    const sign = createSignature(urlGen, secret);
+                    const sign = createSignature(urlGen, token);
                     if (sign === signature) {
                         return true
                     }
