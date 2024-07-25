@@ -554,13 +554,13 @@ mission list data
 
 #### web3 bind 1
 
-request
+**request**
 
 ```json
 {"type":100,action: 1,"target":"ton-wallet-iframe-parent"}
 ```
 
-response
+**response**
 
 ```json
 {"type":100,action: 1,address:"",success:true,error:null,"target":"ton-wallet-iframe"}
@@ -568,13 +568,13 @@ response
 
 #### web3 unbind 2
 
-request
+**request**
 
 ```json
 {"type":100,action: 2,"target":"ton-wallet-iframe-parent"}
 ```
 
-response
+**response**
 
 ```json
 {"type":100,action: 2,success:true,error:null,"target":"ton-wallet-iframe"}
@@ -582,13 +582,13 @@ response
 
 #### twitter bind 3
 
-request
+**request**
 
 ```json
 {"type":100,action: 3,"target":"ton-wallet-iframe-parent"}
 ```
 
-response
+**response**
 
 ```json
 {"type":100,action: 3,success:true,error:null,data:{},"target":"ton-wallet-iframe"}
@@ -596,13 +596,13 @@ response
 
 #### twitter unbind 4
 
-request
+**request**
 
 ```json
 {"type":100,action: 4,"target":"ton-wallet-iframe-parent"}
 ```
 
-response
+**response**
 
 ```json
 {"type":100,action: 4,success:true,error:null,"target":"ton-wallet-iframe"}
@@ -610,7 +610,7 @@ response
 
 #### mission do 5
 
-request
+**request**
 
 ```json
 {"type":100,action: 5,missionInfo:{},"target":"ton-wallet-iframe-parent"}
@@ -618,13 +618,13 @@ request
 
 #### mission verify 6
 
-request
+**request**
 
 ```json
 {"type":100,action: 6,missionid:1,"target":"ton-wallet-iframe-parent"}
 ```
 
-response
+**response**
 
 ```json
 {"type":100,action: 6,success:true,error:null,"target":"ton-wallet-iframe"}
@@ -634,13 +634,25 @@ response
 
 cabackUrl: CP方提供的callback地址
 
-### **游戏内道具订单**
+#### **游戏内道具订单**
 
-**
-**GET callbackUrl[?orderId=123&amp;gameOrderId](http://106.14.251.223:9098/order/pay-done?orderId=)=456**
-**// orderId: 内部订单号**
-**// [gameOrderId](http://106.14.251.223:9098/order/pay-done?orderId=%s&gameOrderId=%s): 游戏侧订单号**
-**RequestBody: none
+**GET **[http://cabackUrl?orderId=123&amp;gameOrderId](http://106.14.251.223:9098/order/pay-done?orderId=)=456
+
+orderId: 内部订单号
+
+[gameOrderId](http://106.14.251.223:9098/order/pay-done?orderId=%s&gameOrderId=%s): 游戏侧订单号
+
+RequestHeader: 
+
+{ApiKey: secret-abc}
+
+// 游戏侧签发apikey
+
+RequestBody: none
+
+ResponseBody: {code: 0, msg: 'ok'}
+
+// code为0表示游戏侧处理完成，否则会一直回调此接口
 
 ### API Docs
 
