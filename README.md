@@ -12,7 +12,123 @@ yarn dev
 yarn build
 ```
 
-## Iframe Event
+## SDK Usage
+
+### 0.入口页面
+
+**src/app/page.tsx**
+
+### 1.Iframe标签入参解析
+
+tgid=...&timestamp=...&token=...&uid=...&signature=...
+
+签名验证库 
+
+```bash
+yarn add @googlemaps/url-signature
+```
+
+验证方法
+
+**src/utils/utils.ts**
+
+```typescript
+import { createSignature } from "@googlemaps/url-signature"
+
+export const verifyURLSign = (urlWithSign: string) => {
+    try {
+        if (urlWithSign) {
+            const url = new URL(urlWithSign)
+            const searchParams = url.searchParams
+            const signature = searchParams.get('signature')
+            const timestamp = searchParams.get('timestamp')
+            const tgid = searchParams.get('tgid')
+            const uid = searchParams.get('uid')
+            const token = searchParams.get('token')
+            const tokenJson = window.btoa(token!)
+            const tokenJsonObj = JSON.parse(tokenJson)
+            const { secret } = tokenJsonObj
+            if (signature && timestamp && token) {
+                const paras = `tgid=${tgid}&timestamp=${timestamp}&token=${token}&uid=${uid}`
+                const urls = urlWithSign.split('?')
+                if (urls.length > 1) {
+                    const url = urls[0]
+                    const urlGen = `${url}?${paras}`
+                    const sign = createSignature(urlGen, secret);
+                    if (sign === signature) {
+                        return true
+                    }
+                }
+            }
+        }
+    } catch (error) {
+        console.error('genIframeUrlEntrancePara params error')
+    }
+    return false
+}
+```
+
+### 2.Iframe内外页面通过message进行数据传递
+
+数据通讯过程
+
+a) Iframe 通过 **postMessage** 向父页面传递Request数据
+
+```typescript
+    const request: requestIframeChild = {
+      type: IframeBussinessType.GetUserInfo, target: "ton-wallet-iframe-parent", req: 1
+    }
+    if (!_.isUndefined(window)) {
+      window.parent.postMessage(request, "*");
+    }
+```
+
+b) Iframe 父页面收到请求data 并回传Response数据
+
+c) Iframe页面进行message监听接收上一步的回传Response数据
+
+```typescript
+window.addEventListener("message", function (event: any) {
+        // console.log('Iframe add window message event listener...')
+        const data = event.data
+        const { target, type } = data
+        if (target === 'ton-wallet-iframe') {
+          console.log('Iniframe recieve response data==>', data)
+        }
+}
+```
+
+d) 根据回传data的type进行相应的数据展示
+
+## Iframe Event Type
+
+```typescript
+//Event Type-事件业务类型
+export const enum IframeBussinessType {
+    Connect = 0,
+    ConnectAndTrade = 1,
+    MyNftList = 2,
+    MintNFT = 3,
+    GetUserInfo = 4,
+    BindTonWallet = 5,
+    BindedWalletList = 6,
+    BuyGameProps = 7,
+    GetInviteCodeShareLink = 8,
+    Task = 100,
+    GetTonWalletAddress = 9999,
+}
+
+//任务事件增加action字段, 用于获取任务列表,绑定推特,执行任务,验证任务等
+//Task Event Action Type
+export const enum IframeBussinessTaskActionType {
+    TaskList = 0,
+    TaskTWBind = 3,
+    TaskDo = 5,
+    TaskVerify = 6,
+}
+```
+
+## Iframe Event Data
 
 ### Common Response Data
 

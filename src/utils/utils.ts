@@ -1,3 +1,5 @@
+import { createSignature } from "@googlemaps/url-signature"
+
 export const openWindow = (urlOpen: string, widthN: number, heightN: number, targetTitle = 'target') => {
     const isMobileScreen = isMobile()
     if (typeof window !== 'undefined') {
@@ -30,4 +32,36 @@ export const isMobile = () => {
         // console.log('isMobile', viewportWidth < mobileWidth)
         return viewportWidth < mobileWidth;
     }
+}
+
+export const verifyURLSign = (urlWithSign: string) => {
+    try {
+        if (urlWithSign) {
+            const url = new URL(urlWithSign)
+            const searchParams = url.searchParams
+            const signature = searchParams.get('signature')
+            const timestamp = searchParams.get('timestamp')
+            const tgid = searchParams.get('tgid')
+            const uid = searchParams.get('uid')
+            const token = searchParams.get('token')
+            const tokenJson = window.btoa(token!)
+            const tokenJsonObj = JSON.parse(tokenJson)
+            const { secret } = tokenJsonObj
+            if (signature && timestamp && token) {
+                const paras = `tgid=${tgid}&timestamp=${timestamp}&token=${token}&uid=${uid}`
+                const urls = urlWithSign.split('?')
+                if (urls.length > 1) {
+                    const url = urls[0]
+                    const urlGen = `${url}?${paras}`
+                    const sign = createSignature(urlGen, secret);
+                    if (sign === signature) {
+                        return true
+                    }
+                }
+            }
+        }
+    } catch (error) {
+        console.error('genIframeUrlEntrancePara params error')
+    }
+    return false
 }
