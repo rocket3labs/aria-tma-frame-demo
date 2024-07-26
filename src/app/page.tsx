@@ -486,6 +486,15 @@ const IframePage: React.FC = () => {
     }
   }
 
+  const getInviteUserList = () => {
+    const request: requestIframeChild = {
+      type: IframeBussinessType.GetInviteUserList, target: "ton-wallet-iframe-parent", req: 9
+    }
+    if (!_.isUndefined(window)) {
+      window.parent.postMessage(request, "*");
+    }
+  }
+
   const verifyIframeURLSign = () => {
     const urlIframe = window.location.href
     const isVerify = verifyURLSign(urlIframe)
@@ -580,6 +589,11 @@ const IframePage: React.FC = () => {
         <List>
           <Button variant="contained" onClick={() => { getShareLink() }}>Get Share Link</Button>
           <Box>Share Link:<a style={{ color: 'white', marginLeft: '10px' }} href={responseDataShareLink.link} target='_blank'>{responseDataShareLink.link}</a></Box>
+        </List>
+      </Box>
+      <Box>
+        <List>
+          <Button variant="contained" onClick={() => { getInviteUserList() }}>Get Invite User List</Button>
         </List>
       </Box>
       <Box>

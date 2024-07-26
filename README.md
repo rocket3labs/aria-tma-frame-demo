@@ -154,14 +154,26 @@ export const enum IframeBussinessTaskActionType {
 {type: 0, userFriendlyAddress: "", rawAddress: "", target: "ton-wallet-iframe"}
 ```
 
-### Pay 1 / 支付
+### Connect & Pay 1 / 连接钱包并支付
 
 **request**
 
 ```json
-{type: 1, value:0.0001,token:"",payType: 0, target: "ton-wallet-iframe-parent"} //connect & mint
-{type: 1, value:0.0001,token:"",payType: 1, target: "ton-wallet-iframe-parent"} //connect & buygameprops
+{type: 1, value:0.0001,token:"",orderid:"aaaaaa",item_id: 1111,item_name:'aaaa',item_category:"aaaa",payType: 0, target: "ton-wallet-iframe-parent"} //connect & mint
+{type: 1, value:0.0001,token:"",orderid:"aaaaa",item_id: 1111,item_name:'aaaa',item_category:"aaaa",payType: 1, target: "ton-wallet-iframe-parent"} //connect & buygameprops
 ```
+
+**参数说明**
+
+**payType(number):** 0-mint, 1-购买游戏道具
+
+**orderid(string):** 游戏侧生成的订单id
+
+**item_id(string):** 游戏侧购买物品的唯一id
+
+**item_name(string):** 游戏侧购买物品的名称
+
+**item_category(string):** 游戏侧购买物品的类别
 
 **response**
 
@@ -300,7 +312,7 @@ export const enum IframeBussinessTaskActionType {
 {"type":3,address:"",success:true,error:null,target:"ton-wallet-iframe"}
 ```
 
-### Profile 4
+### Profile 4 / 用户信息
 
 **request**
 
@@ -366,18 +378,34 @@ response
 {"type":6,list:[],target:"ton-wallet-iframe"}
 ```
 
-### Share 7 / 分享
+### Buy Game Props 7 / 购买游戏道具
+
+
+**request**
+
+```json
+{type:3,address:"",target:"ton-wallet-iframe-parent"}
+```
+
+**response**
+
+```json
+{"type":3,address:"",success:true,error:null,target:"ton-wallet-iframe"}
+```
+
+
+### Share 8 / 分享
 
 request
 
 ```json
-{type:7,target:"ton-wallet-iframe-parent"}
+{type:8,target:"ton-wallet-iframe-parent"}
 ```
 
 response
 
 ```json
-{"type":7,link:"http://t.me/.....",target:"ton-wallet-iframe"}
+{"type":8,link:"http://t.me/.....",target:"ton-wallet-iframe"}
 ```
 
 

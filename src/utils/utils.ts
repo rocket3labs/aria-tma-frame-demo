@@ -1,5 +1,4 @@
 import { createSignature } from "@googlemaps/url-signature"
-import base64url from "base64url"
 
 export const openWindow = (urlOpen: string, widthN: number, heightN: number, targetTitle = 'target') => {
     const isMobileScreen = isMobile()
