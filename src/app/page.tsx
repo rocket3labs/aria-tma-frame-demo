@@ -331,7 +331,7 @@ const IframePage: React.FC = () => {
     target: "ton-wallet-iframe"
   }
 
-  interface responseDataMyNftList {
+  interface responseDataList {
     type: number
     req: number
     success: boolean
@@ -349,14 +349,14 @@ const IframePage: React.FC = () => {
     profile: any
   }
 
-  interface responseDataMissionList {
-    type: number
-    req: number
-    success: boolean
-    error: any,
-    target: "ton-wallet-iframe"
-    list: any
-  }
+  // interface responseDataMissionList {
+  //   type: number
+  //   req: number
+  //   success: boolean
+  //   error: any,
+  //   target: "ton-wallet-iframe"
+  //   list: any
+  // }
 
   interface responseDataShareLink {
     type: number
@@ -379,7 +379,7 @@ const IframePage: React.FC = () => {
     type: -1, req: -1, success: false, error: null, target: "ton-wallet-iframe"
   });
 
-  const [responseDataMyNftList, setResponseDataMyNftList] = useState<responseDataMyNftList>({
+  const [responseDataMyNftList, setResponseDataMyNftList] = useState<responseDataList>({
     type: -1, req: -1, success: false, error: null, target: "ton-wallet-iframe", list: []
   });
 
@@ -391,7 +391,11 @@ const IframePage: React.FC = () => {
     type: -1, req: -1, success: false, error: null, target: "ton-wallet-iframe", link: ""
   });
 
-  const [responseDataMissionList, setResponseDataMissionList] = useState<responseDataMissionList>({
+  const [responseDataMissionList, setResponseDataMissionList] = useState<responseDataList>({
+    type: -1, req: -1, success: false, error: null, target: "ton-wallet-iframe", list: []
+  });
+
+  const [responseDataInviteUIDList, setResponseDataInviteUIDList] = useState<responseDataList>({
     type: -1, req: -1, success: false, error: null, target: "ton-wallet-iframe", list: []
   });
 
@@ -486,9 +490,9 @@ const IframePage: React.FC = () => {
     }
   }
 
-  const getInviteUserList = () => {
+  const getInviteUserIDList = () => {
     const request: requestIframeChild = {
-      type: IframeBussinessType.GetInviteUserList, target: "ton-wallet-iframe-parent", req: 9
+      type: IframeBussinessType.GetInviteUserIDList, target: "ton-wallet-iframe-parent", req: 9
     }
     if (!_.isUndefined(window)) {
       window.parent.postMessage(request, "*");
@@ -555,7 +559,7 @@ const IframePage: React.FC = () => {
               setResponseDataTradeBuyGameProps(dataResTradeBuyGameProps)
               break;
             case IframeBussinessType.MyNftList:
-              const dataResMyNftList: responseDataMyNftList = data
+              const dataResMyNftList: responseDataList = data
               setResponseDataMyNftList(dataResMyNftList)
               break;
             case IframeBussinessType.GetUserInfo:
@@ -566,11 +570,15 @@ const IframePage: React.FC = () => {
               const dataResShareLink: responseDataShareLink = data
               setResponseDataShareLink(dataResShareLink)
               break
+            case IframeBussinessType.GetInviteUserIDList:
+              const dataResInviteList: responseDataList = data
+              setResponseDataInviteUIDList(dataResInviteList)
+              break
             case IframeBussinessType.Task:
               const { action } = data
               switch (action) {
                 case IframeBussinessTaskActionType.TaskList:
-                  const dataResMissionList: responseDataMissionList = data
+                  const dataResMissionList: responseDataList = data
                   setResponseDataMissionList(dataResMissionList)
                   break;
               }
@@ -593,7 +601,10 @@ const IframePage: React.FC = () => {
       </Box>
       <Box>
         <List>
-          <Button variant="contained" onClick={() => { getInviteUserList() }}>Get Invite User List</Button>
+          <Button variant="contained" onClick={() => { getInviteUserIDList() }}>Get Invite User ID List</Button>
+          <Box>
+            {JSON.stringify(responseDataInviteUIDList)}
+          </Box>
         </List>
       </Box>
       <Box>

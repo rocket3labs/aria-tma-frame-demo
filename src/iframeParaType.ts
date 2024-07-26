@@ -8,7 +8,7 @@ export const enum IframeBussinessType {
     BindedWalletList = 6,
     BuyGameProps = 7,
     GetInviteCodeShareLink = 8,
-    GetInviteUserList = 9,
+    GetInviteUserIDList = 9,
     Task = 100,
     GetTonWalletAddress = 9999,
 }

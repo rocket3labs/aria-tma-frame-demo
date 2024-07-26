@@ -408,6 +408,23 @@ response
 {"type":8,link:"http://t.me/.....",target:"ton-wallet-iframe"}
 ```
 
+### Get Invite User ID List 9 / 获取邀请用户列表ID
+
+**request**
+
+```json
+{type:9,target:"ton-wallet-iframe-parent"}
+```
+
+**response**
+
+```json
+{"type":9,list:[1,2,3],target:"ton-wallet-iframe"}
+```
+
+**list**
+
+[1,2,3]
 
 ### Mission 100 / 任务
 
