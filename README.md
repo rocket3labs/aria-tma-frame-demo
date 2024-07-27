@@ -678,22 +678,17 @@ mission list data
 **支付完成回调**
 
 GET https://example.com/pay-done?orderId=1&gameOrderId=abc123&currency=toncoin&amount=0.5&ts=1722060362&sign={Hmac-Sha1 digest}
+// orderId 内部订单id, long
+// gameOrderId 游戏侧订单id, string
+// currency 支付币种[toncoin, usdt], string
+// amount 支付金额, number
+// ts 时间戳(秒), number
+// {Hmac-Sha1 digest} = HS256('https://example.com/pay-done?orderId=1&gameOrderId=abc123&currency=toncoin&amount=0.5&ts=1722060362', 'game.secret')
 
-**// orderId 内部订单id, long**
+**RequestBody**: null
 
-**// gameOrderId 游戏侧订单id, string**
-
-**// currency 支付币种[toncoin, usdt], string**
-
-**// amount 支付金额, number**
-
-**// ts 时间戳(秒), number**
-
-// {Hmac-Sha1 digest} = HS256('https://example.com/pay-done?orderId=1&gameOrderId=abc123&currency=toncoin&amount=0.5&ts=1722060362', game.secret)
-
-**RequestBody: null**
-
-**ResponseBody: {"code": 0, "msg": "ok"}**
+**ResponseBody**: {"code": 0, "msg": "ok"}
+// 如果未收到此响应结果，将一直回调
 
 ### API Docs
 
