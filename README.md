@@ -380,7 +380,6 @@ response
 
 ### Buy Game Props 7 / 购买游戏道具
 
-
 **request**
 
 ```json
@@ -392,7 +391,6 @@ response
 ```json
 {"type":3,address:"",success:true,error:null,target:"ton-wallet-iframe"}
 ```
-
 
 ### Share 8 / 分享
 
@@ -677,27 +675,13 @@ mission list data
 
 ### Pay Callback
 
-cabackUrl: CP方提供的callback地址
+**支付完成回调**
 
-#### **游戏内道具订单**
+GET [https://example.com/pay-done?orderId=1&amp;gameOrderId=abc123&amp;ts=1722060362&amp;sign=](https://example.com/pay-done?orderId=1&gameOrderId=abc123&ts=1722060362&sign=){Hmac-Sha1 digest}
+// {Hmac-Sha1 digest} = HS256([https://example.com/pay-done?orderId=1&amp;gameOrderId=abc123&amp;ts=1722060362](https://example.com/pay-done?orderId=1&gameOrderId=abc123&ts=1722060362), game.secret)**
 
-**GET **[http://cabackUrl?orderId=123&amp;gameOrderId](http://106.14.251.223:9098/order/pay-done?orderId=)=456
-
-orderId: 内部订单号
-
-[gameOrderId](http://106.14.251.223:9098/order/pay-done?orderId=%s&gameOrderId=%s): 游戏侧订单号
-
-RequestHeader: 
-
-{ApiKey: secret-abc}
-
-// 游戏侧签发apikey
-
-RequestBody: none
-
-ResponseBody: {code: 0, msg: 'ok'}
-
-// code为0表示游戏侧处理完成，否则会一直回调此接口
+RequestBody: null
+ResponseBody: {"code": 0, "msg": "ok"}
 
 ### API Docs
 
