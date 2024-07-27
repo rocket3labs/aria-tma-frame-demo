@@ -28,7 +28,6 @@ tgid=...&timestamp=...&token=...&uid=...&signature=...
 
 ```typescript
 import { createSignature } from "@googlemaps/url-signature"
-import base64url from "base64url"
 
 //urlWithSign: 传入iframe页面的完整URL
 export const verifyURLSign = (urlWithSign: string) => {
