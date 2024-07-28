@@ -425,6 +425,20 @@ response
 
 [1,2,3]
 
+### Send TG Bot Message 10 / 发送机器人消息
+
+**request**
+
+```json
+{type:10,message:'message content',target:"ton-wallet-iframe-parent"}
+```
+
+**response**
+
+```json
+{"type": 10,success:true,error:null,target:"ton-wallet-iframe"}
+```
+
 ### Mission 100 / 任务
 
 #### mission list 0 / 任务列表

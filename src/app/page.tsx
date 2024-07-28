@@ -308,11 +308,12 @@ const IframePage: React.FC = () => {
     payCurrency?: number
     token?: string
     orderid?: string
-    item_id?: number,
-    item_name?: string,
-    item_category?: any,
-    missionInfo?: any,
+    item_id?: number
+    item_name?: string
+    item_category?: any
+    missionInfo?: any
     missionid?: any
+    message?: string
   }
 
   interface responseConnect {
@@ -323,7 +324,7 @@ const IframePage: React.FC = () => {
     target: "ton-wallet-iframe"
   }
 
-  interface responseTrade {
+  interface responseBase {
     type: number
     req: number
     success: boolean
@@ -371,11 +372,11 @@ const IframePage: React.FC = () => {
     type: -1, req: -1, userFriendlyAddress: "", rawAddress: "", target: "ton-wallet-iframe"
   });
 
-  const [responseDataTradeMint, setResponseDataTradeMint] = useState<responseTrade>({
+  const [responseDataTradeMint, setResponseDataTradeMint] = useState<responseBase>({
     type: -1, req: -1, success: false, error: null, target: "ton-wallet-iframe"
   });
 
-  const [responseDataTradeBuyGameProps, setResponseDataTradeBuyGameProps] = useState<responseTrade>({
+  const [responseDataTradeBuyGameProps, setResponseDataTradeBuyGameProps] = useState<responseBase>({
     type: -1, req: -1, success: false, error: null, target: "ton-wallet-iframe"
   });
 
@@ -397,6 +398,10 @@ const IframePage: React.FC = () => {
 
   const [responseDataInviteUIDList, setResponseDataInviteUIDList] = useState<responseDataList>({
     type: -1, req: -1, success: false, error: null, target: "ton-wallet-iframe", list: []
+  });
+
+  const [responseDataSendTGBotMessage, setResponseSendTGBotMessage] = useState<responseBase>({
+    type: -1, req: -1, success: false, error: null, target: "ton-wallet-iframe"
   });
 
   const connectWallet = () => {
@@ -500,6 +505,15 @@ const IframePage: React.FC = () => {
     }
   }
 
+  const sendTGBotMessage = () => {
+    const request: requestIframeChild = {
+      type: IframeBussinessType.SendTGBotMessage, target: "ton-wallet-iframe-parent", req: 10, message: "Hello, bot."
+    }
+    if (!_.isUndefined(window)) {
+      window.parent.postMessage(request, "*");
+    }
+  }
+
   const verifyIframeURLSign = () => {
     const urlIframe = window.location.href
     const isVerify = verifyURLSign(urlIframe)
@@ -531,8 +545,6 @@ const IframePage: React.FC = () => {
     return null
   }
 
-
-
   useEffect(() => {
     verifyIframeURLSign()
     getWalletAddress()
@@ -552,11 +564,11 @@ const IframePage: React.FC = () => {
               setResponseDataConnect(dataRes)
               break;
             case IframeBussinessType.MintNFT:
-              const dataResTradeMint: responseTrade = data
+              const dataResTradeMint: responseBase = data
               setResponseDataTradeMint(dataResTradeMint)
               break
             case IframeBussinessType.BuyGameProps:
-              const dataResTradeBuyGameProps: responseTrade = data
+              const dataResTradeBuyGameProps: responseBase = data
               setResponseDataTradeBuyGameProps(dataResTradeBuyGameProps)
               break;
             case IframeBussinessType.MyNftList:
@@ -574,6 +586,10 @@ const IframePage: React.FC = () => {
             case IframeBussinessType.GetInviteUserIDList:
               const dataResInviteList: responseDataList = data
               setResponseDataInviteUIDList(dataResInviteList)
+              break
+            case IframeBussinessType.SendTGBotMessage:
+              const dataResSendTGBotMessage: responseBase = data
+              setResponseSendTGBotMessage(dataResSendTGBotMessage)
               break
             case IframeBussinessType.Task:
               const { action } = data
@@ -593,6 +609,14 @@ const IframePage: React.FC = () => {
     <List style={{ minHeight: '100vh', height: 'auto' }}>
       <Box>
         <h1>Iframe Communication Demo</h1>
+      </Box>
+      <Box>
+        <List>
+          <Button variant="contained" onClick={() => { sendTGBotMessage() }}>Send Bot Message</Button>
+          <Box>
+            {JSON.stringify(responseDataSendTGBotMessage)}
+          </Box>
+        </List>
       </Box>
       <Box>
         <List>

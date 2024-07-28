@@ -9,6 +9,7 @@ export const enum IframeBussinessType {
     BuyGameProps = 7,
     GetInviteCodeShareLink = 8,
     GetInviteUserIDList = 9,
+    SendTGBotMessage = 10,
     Task = 100,
     GetTonWalletAddress = 9999,
 }
