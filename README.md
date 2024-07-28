@@ -159,12 +159,14 @@ export const enum IframeBussinessTaskActionType {
 
 ```json
 {type: 1, value:0.0001,token:"",orderid:"aaaaaa",item_id: 1111,item_name:'aaaa',item_category:"aaaa",payType: 0, target: "ton-wallet-iframe-parent"} //connect & mint
-{type: 1, value:0.0001,token:"",orderid:"aaaaa",item_id: 1111,item_name:'aaaa',item_category:"aaaa",payType: 1, target: "ton-wallet-iframe-parent"} //connect & buygameprops
+{type: 1, value:0.0001,token:"",orderid:"aaaaa",item_id: 1111,item_name:'aaaa',item_category:"aaaa",payType: 1, payCurrency:0,target: "ton-wallet-iframe-parent"} //connect & buygameprops
 ```
 
 **参数说明**
 
-**payType(number):** 0-mint, 1-购买游戏道具
+**payType(number):** 支付业务类型: 0-mint, 1-购买游戏道具
+
+**payCurrency(number)**: 支付货币: 0-usdt, 1-ton
 
 **orderid(string):** 游戏侧生成的订单id
 

@@ -305,7 +305,7 @@ const IframePage: React.FC = () => {
     action?: number
     value?: number
     payType?: number
-    payMoneyType?: number
+    payCurrency?: number
     token?: string
     orderid?: string
     item_id?: number,
@@ -424,6 +424,7 @@ const IframePage: React.FC = () => {
       req: 3,
       token: payType === 0 ? "" : "kQAhnJ8w081DxUh9ov8wKE71juW6kbToQknbagBmjQ54Dl1C",
       payType: payType,
+      payCurrency: 0,
       orderid: "123456",
       value: payType === 0 ? 0.3 : 0.1,
       item_id: 1000,
