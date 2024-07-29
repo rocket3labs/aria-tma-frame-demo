@@ -404,6 +404,10 @@ const IframePage: React.FC = () => {
     type: -1, req: -1, success: false, error: null, target: "ton-wallet-iframe"
   });
 
+  const [responseDataInviteUserList, setResponseDataInviteUserList] = useState<responseDataList>({
+    type: -1, req: -1, success: false, error: null, target: "ton-wallet-iframe", list: []
+  });
+
   const connectWallet = () => {
     const request: requestIframeChild = {
       type: IframeBussinessType.Connect, target: "ton-wallet-iframe-parent", req: 1
@@ -514,6 +518,15 @@ const IframePage: React.FC = () => {
     }
   }
 
+  const getInviteUserList = () => {
+    const request: requestIframeChild = {
+      type: IframeBussinessType.getInviteUserList, target: "ton-wallet-iframe-parent", req: 11
+    }
+    if (!_.isUndefined(window)) {
+      window.parent.postMessage(request, "*");
+    }
+  }
+
   const verifyIframeURLSign = () => {
     const urlIframe = window.location.href
     const isVerify = verifyURLSign(urlIframe)
@@ -591,6 +604,10 @@ const IframePage: React.FC = () => {
               const dataResSendTGBotMessage: responseBase = data
               setResponseSendTGBotMessage(dataResSendTGBotMessage)
               break
+            case IframeBussinessType.getInviteUserList:
+              const dataResInviteUserList: responseDataList = data
+              setResponseDataInviteUserList(dataResInviteUserList)
+              break
             case IframeBussinessType.Task:
               const { action } = data
               switch (action) {
@@ -629,6 +646,14 @@ const IframePage: React.FC = () => {
           <Button variant="contained" onClick={() => { getInviteUserIDList() }}>Get Invite User ID List</Button>
           <Box>
             {JSON.stringify(responseDataInviteUIDList)}
+          </Box>
+        </List>
+      </Box>
+      <Box>
+        <List>
+          <Button variant="contained" onClick={() => { getInviteUserList() }}>Get Invite User List</Button>
+          <Box>
+            {JSON.stringify(responseDataInviteUserList)}
           </Box>
         </List>
       </Box>
