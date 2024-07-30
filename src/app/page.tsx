@@ -314,6 +314,7 @@ const IframePage: React.FC = () => {
     missionInfo?: any
     missionid?: any
     message?: string
+    url?: string
   }
 
   interface responseConnect {
@@ -520,7 +521,16 @@ const IframePage: React.FC = () => {
 
   const getInviteUserList = () => {
     const request: requestIframeChild = {
-      type: IframeBussinessType.getInviteUserList, target: "ton-wallet-iframe-parent", req: 11
+      type: IframeBussinessType.GetInviteUserList, target: "ton-wallet-iframe-parent", req: 11
+    }
+    if (!_.isUndefined(window)) {
+      window.parent.postMessage(request, "*");
+    }
+  }
+
+  const openWebLink = () => {
+    const request: requestIframeChild = {
+      type: IframeBussinessType.OpenWebLink, target: "ton-wallet-iframe-parent", url: responseDataShareLink.link, req: 12, value: 0
     }
     if (!_.isUndefined(window)) {
       window.parent.postMessage(request, "*");
@@ -604,7 +614,7 @@ const IframePage: React.FC = () => {
               const dataResSendTGBotMessage: responseBase = data
               setResponseSendTGBotMessage(dataResSendTGBotMessage)
               break
-            case IframeBussinessType.getInviteUserList:
+            case IframeBussinessType.GetInviteUserList:
               const dataResInviteUserList: responseDataList = data
               setResponseDataInviteUserList(dataResInviteUserList)
               break
@@ -633,6 +643,12 @@ const IframePage: React.FC = () => {
           <Box>
             {JSON.stringify(responseDataSendTGBotMessage)}
           </Box>
+        </List>
+      </Box>
+      <Box>
+        <List>
+          <Button variant="contained" onClick={() => { openWebLink() }}>Open Web Link</Button>
+          <Box>Share Link:<a style={{ color: 'white', marginLeft: '10px' }} href={responseDataShareLink.link} target='_blank'>{responseDataShareLink.link}</a></Box>
         </List>
       </Box>
       <Box>
