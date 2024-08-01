@@ -439,6 +439,59 @@ response
 {"type": 10,success:true,error:null,target:"ton-wallet-iframe"}
 ```
 
+### Get Invite User ID List 11 / 获取邀请用户列表
+
+**request**
+
+```json
+{type:11,target:"ton-wallet-iframe-parent"}
+```
+
+**response**
+
+```json
+{"type":11,list:[],target:"ton-wallet-iframe"}
+```
+
+**list**
+
+[]
+
+
+### Open Web Link 12 / 打开超链接
+
+**request**
+
+```json
+{type:12,link: 'https://...',target:"ton-wallet-iframe-parent"}
+```
+
+**link:** 要打开的超链接地址
+
+**response**
+
+```json
+{"type":12,success:true,error: null,target:"ton-wallet-iframe"}
+```
+
+
+### Copy Text To Clipboard 13 / 复制文本到剪切板
+
+**request**
+
+```json
+{type:13,text: 'aaaaa',target:"ton-wallet-iframe-parent"}
+```
+
+**text**: 要复制的文本
+
+**response**
+
+```json
+{"type":13,success:true,error: null,target:"ton-wallet-iframe"}
+```
+
+
 ### Mission 100 / 任务
 
 #### mission list 0 / 任务列表

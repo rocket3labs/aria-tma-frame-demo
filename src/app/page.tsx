@@ -315,6 +315,7 @@ const IframePage: React.FC = () => {
     missionid?: any
     message?: string
     url?: string
+    text?: string
   }
 
   interface responseConnect {
@@ -408,6 +409,11 @@ const IframePage: React.FC = () => {
   const [responseDataInviteUserList, setResponseDataInviteUserList] = useState<responseDataList>({
     type: -1, req: -1, success: false, error: null, target: "ton-wallet-iframe", list: []
   });
+
+  const [responseDataCopyToClipboard, setResponseDataCopyToClipboard] = useState<responseBase>({
+    type: -1, req: -1, success: false, error: null, target: "ton-wallet-iframe"
+  });
+
 
   const connectWallet = () => {
     const request: requestIframeChild = {
@@ -537,6 +543,15 @@ const IframePage: React.FC = () => {
     }
   }
 
+  const copyToClipboard = () => {
+    const request: requestIframeChild = {
+      type: IframeBussinessType.CopyToClipboard, target: "ton-wallet-iframe-parent", text: 'text is copy', req: 12, value: 0
+    }
+    if (!_.isUndefined(window)) {
+      window.parent.postMessage(request, "*");
+    }
+  }
+
   const verifyIframeURLSign = () => {
     const urlIframe = window.location.href
     const isVerify = verifyURLSign(urlIframe)
@@ -618,6 +633,10 @@ const IframePage: React.FC = () => {
               const dataResInviteUserList: responseDataList = data
               setResponseDataInviteUserList(dataResInviteUserList)
               break
+            case IframeBussinessType.CopyToClipboard:
+              const dataResCopyToClipboard: responseBase = data
+              setResponseDataCopyToClipboard(dataResCopyToClipboard)
+              break
             case IframeBussinessType.Task:
               const { action } = data
               switch (action) {
@@ -636,6 +655,16 @@ const IframePage: React.FC = () => {
     <List style={{ minHeight: '100vh', height: 'auto' }}>
       <Box>
         <h1>Iframe Communication Demo</h1>
+      </Box>
+      <Box>
+        <Button onClick={() => {
+          copyToClipboard()
+        }}
+        >
+        </Button>
+        <Box>
+          Copied Text Result: {responseDataCopyToClipboard.success}
+        </Box>
       </Box>
       <Box>
         <List>

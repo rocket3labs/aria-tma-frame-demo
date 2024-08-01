@@ -12,6 +12,7 @@ export const enum IframeBussinessType {
     SendTGBotMessage = 10,
     GetInviteUserList = 11,
     OpenWebLink = 12,
+    CopyToClipboard = 13,
     Task = 100,
     GetTonWalletAddress = 9999,
 }
