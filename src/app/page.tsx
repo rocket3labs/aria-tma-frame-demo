@@ -661,6 +661,7 @@ const IframePage: React.FC = () => {
           copyToClipboard()
         }}
         >
+          Copy Text to Clipboard
         </Button>
         <Box>
           Copied Text Result: {responseDataCopyToClipboard.success}
