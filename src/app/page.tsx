@@ -545,7 +545,7 @@ const IframePage: React.FC = () => {
 
   const copyToClipboard = () => {
     const request: requestIframeChild = {
-      type: IframeBussinessType.CopyToClipboard, target: "ton-wallet-iframe-parent", text: 'text is copy', req: 12, value: 0
+      type: IframeBussinessType.CopyToClipboard, target: "ton-wallet-iframe-parent", text: 'text is copy', req: 13, value: 0
     }
     if (!_.isUndefined(window)) {
       window.parent.postMessage(request, "*");
@@ -657,14 +657,14 @@ const IframePage: React.FC = () => {
         <h1>Iframe Communication Demo</h1>
       </Box>
       <Box>
-        <Button onClick={() => {
+        <Button variant="contained" onClick={() => {
           copyToClipboard()
         }}
         >
           Copy Text to Clipboard
         </Button>
         <Box>
-          Copied Text Result: {responseDataCopyToClipboard.success}
+          Copied Text Result: {JSON.stringify(responseDataCopyToClipboard)}
         </Box>
       </Box>
       <Box>
