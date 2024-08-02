@@ -407,7 +407,7 @@ response
 {"type":8,link:"http://t.me/.....",target:"ton-wallet-iframe"}
 ```
 
-### Get Invite User ID List 9 / 获取邀请用户列表ID
+### ~~Get Invite User ID List 9 / 获取邀请用户列表ID(已废弃)~~
 
 **request**
 
