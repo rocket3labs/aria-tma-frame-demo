@@ -439,7 +439,7 @@ response
 {"type": 10,success:true,error:null,target:"ton-wallet-iframe"}
 ```
 
-### Get Invite User ID List 11 / 获取邀请用户列表
+### Get Invite User List 11 / 获取邀请用户列表
 
 **request**
 
@@ -457,7 +457,6 @@ response
 
 []
 
-
 ### Open Web Link 12 / 打开超链接
 
 **request**
@@ -474,7 +473,6 @@ response
 {"type":12,success:true,error: null,target:"ton-wallet-iframe"}
 ```
 
-
 ### Copy Text To Clipboard 13 / 复制文本到剪切板
 
 **request**
@@ -490,7 +488,6 @@ response
 ```json
 {"type":13,success:true,error: null,target:"ton-wallet-iframe"}
 ```
-
 
 ### Mission 100 / 任务
 
