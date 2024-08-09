@@ -738,7 +738,7 @@ mission list data
 {"type":100,action: 6,success:true,error:null,"target":"ton-wallet-iframe"}
 ```
 
-### Pay Callback
+## Pay Callback
 
 **支付完成回调**
 
@@ -755,6 +755,20 @@ GET https://example.com/pay-done?orderId=1&gameOrderId=abc123&currency=toncoin&a
 **ResponseBody**: {"code": 0, "msg": "ok"}
 // 如果未收到此响应结果，将一直回调
 
-### API Docs
+## CP Send Bot Message(From Server)
+
+**POST **[https://sit-api.playariagame.com](https://sit-api.playariagame.com)/telegram/bot/sendMessage4cp?sign=HS256**
+**
+**RequestBody:**
+**public class TgBotSendMessageReq {**
+**/****
+**     * 游戏[Aria.Compass, Aria.Bag, Zoomania.FishingMaster]**
+**     */**
+**private String gameId;**
+**    private Long chatId;**
+**    private String text;**
+**}**
+
+## API Docs
 
 **[apifox](https://app.apifox.com/project/4143747)**
