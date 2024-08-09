@@ -462,7 +462,7 @@ response
 **request**
 
 ```json
-{type:12,link: 'https://...',target:"ton-wallet-iframe-parent"}
+{type:12,url: 'https://...',target:"ton-wallet-iframe-parent"}
 ```
 
 **link:** 要打开的超链接地址
